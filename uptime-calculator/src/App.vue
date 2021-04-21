@@ -1,19 +1,26 @@
 <template>
+
+<div id="app">
   <div class="content">
+    <Map/>
     <Inputs v-on:sendInputs="onButtonClick"/>
     <Output v-model="res" :output="res"/>
   </div>
+</div>
+  
 </template>
 
 <script>
 import Inputs from "./components/Inputs";
 import Output from "./components/Output";
+import Map from "./components/Map";
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 export default {
   name: "App",
   components: {
     Inputs,
-    Output
+    Output,
+    Map
   },
   data(){
     return{
