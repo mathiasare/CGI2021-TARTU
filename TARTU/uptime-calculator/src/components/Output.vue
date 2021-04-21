@@ -1,13 +1,16 @@
 <template>
   <div class="answer-box">
-      <h1 v-text="answer"></h1>
+    <ul>
+      <li v-for="o in output" :key="o" v-text="o"></li>
+    </ul>
+
 </div>
 </template>
 
 <script>
 export default {
     props:{
-        answer:String
+        output:Array
     }
 }
 </script>
@@ -21,5 +24,8 @@ export default {
   width: 30%;
   justify-content: center;
   align-items: center;
+  font-size:1em;
 }
+
+
 </style>

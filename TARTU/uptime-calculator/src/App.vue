@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <Inputs />
-    <Output answer="5.6 hours"/>
+    <Inputs v-on:sendInputs="onButtonClick"/>
+    <Output v-model="res" :output="res"/>
   </div>
 </template>
 
@@ -17,10 +17,10 @@ export default {
   },
   data(){
     return{
-      longitude:59.422694106797614,
-      latitude:24.723669322788975,
-      
-      date: new Date("2021-04-20")
+      longitude:0,
+      latitude:0,
+      date: new Date(Date.now()),
+      res:[]
     }
   },
   methods:{
@@ -33,14 +33,17 @@ export default {
       minutes_sunrise = minutes_sunrise + (sunrise.getHours()*60)
       minutes_sunset = minutes_sunset + (sunset.getHours()*60)
 
-      const result = Math.floor((minutes_sunset - minutes_sunrise) /60) + " hours and " + ((minutes_sunset - minutes_sunrise)%60) + " minutes."
-      console.log(result)
+      const uptime = Math.floor((minutes_sunset - minutes_sunrise) /60) + " hours and " + ((minutes_sunset - minutes_sunrise)%60) + " minutes."
+
   
-      return result
+      this.res = ["Sun rises at: " +sunrise.toTimeString(),"Sun sets at: "+sunset.toTimeString(), "Sun is up for: "+uptime]
+    },
+    onButtonClick(data){
+      this.longitude = parseFloat(data[0])
+      this.latitude = parseFloat(data[1])
+      this.date = new Date(data[2])
+      this.findUptime()
     }
-  },
-  mounted(){
-    this.findUptime()
   }
 };
 </script>
@@ -61,6 +64,10 @@ export default {
   justify-content: space-between;
   flex-direction: row;
 }
-
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
 </style>
