@@ -3,8 +3,8 @@
 <div id="app">
   <div class="content">
     <Map/>
-    <Inputs v-on:sendInputs="onButtonClick"/>
-    <Output v-model="res" :output="res"/>
+    <Inputs/>
+    <Output :output="res"/>
   </div>
 </div>
   
@@ -15,6 +15,7 @@ import Inputs from "./components/Inputs";
 import Output from "./components/Output";
 import Map from "./components/Map";
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
+import {mapMutations} from 'vuex'
 export default {
   name: "App",
   components: {
@@ -24,16 +25,17 @@ export default {
   },
   data(){
     return{
-      longitude:0,
-      latitude:0,
-      date: new Date(Date.now()),
       res:[]
     }
   },
   methods:{
+    ...mapMutations(['setLongitudeText','setLatitudeText']),
     findUptime(){
-      const sunrise = getSunrise(this.latitude,this.longitude,this.date)
-      const sunset = getSunset(this.latitude,this.longitude,this.date)
+      const lng = this.$store.getters.getLongitude
+      const lat = this.$store.getters.getLatitude
+      const date = this.$store.getters.getDate
+      const sunrise = getSunrise(lng,lat,date)
+      const sunset = getSunset(lng,lat,date)
       let minutes_sunrise = sunrise.getMinutes()
       let minutes_sunset = sunset.getMinutes()
       
@@ -45,10 +47,7 @@ export default {
   
       this.res = ["Sun rises at: " +sunrise.toTimeString(),"Sun sets at: "+sunset.toTimeString(), "Sun is up for: "+uptime]
     },
-    onButtonClick(data){
-      this.longitude = parseFloat(data[0])
-      this.latitude = parseFloat(data[1])
-      this.date = new Date(data[2])
+    onButtonClick(){
       this.findUptime()
     }
   }
@@ -75,6 +74,11 @@ ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+.testButton{
+   font-size: 1.1rem;
+  padding: 0.8em;
+  margin-top: 6em;
 }
 
 </style>
