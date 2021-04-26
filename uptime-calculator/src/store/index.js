@@ -6,9 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 state : {
     fromMap: false,
-    longitude:0.0,
-    latitude:0.0,
-    date:new Date(Date.now()),
+    longitude:25.067,
+    latitude:59.041,
+    date:new Date("03-22-1999"),
     longitudeText:'tere',
     latitudeText:'tere'
 },

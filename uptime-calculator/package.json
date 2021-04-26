@@ -12,6 +12,7 @@
     "leaflet": "^1.7.1",
     "sunrise-sunset-js": "^2.2.1",
     "vue": "^2.6.11",
+    "vue-router": "^3.5.1",
     "vue2-leaflet": "^2.7.0",
     "vuex": "^3.4.0"
   },

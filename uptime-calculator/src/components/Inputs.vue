@@ -9,20 +9,19 @@
     
 
   <label for="longitude">Longitude (X):</label>
-  <input class="field" id="longitude" type="text" placeholder="Coordinates in EPSG:4326" v-model="longitudeInput">
+  <input class = "field" v-bind:class="{invalidLongitude:invalid}" id="longitude" type="text" placeholder="Coordinates in EPSG:4326" v-model="longitudeInput">
 
 
   <label  for="latitude">Latitude (Y):</label>
-  <input  class="field" id="latitude" type="text" placeholder="Coordinates in EPSG:4326" v-model="latitudeInput">
+  <input  class="field" :class="{invalidLatitude:'invalid'}" id="latitude" type="text" placeholder="Coordinates in EPSG:4326" v-model="latitudeInput">
 
 
   <label  for="date">Select date:</label>
-  <input class="field" id="date" type="date" v-model="dateInput">
+  <input class="field" :class="{invalidDate:invalid}" id="date" type="date" v-model="dateInput"/>
 
   <label  for="mapTrigger">Coordinates from Map</label>
   <input id="mapTrigger" type="checkbox" @change="reverseFromMap">
 
-  <button @click="commitToStore">Calculate uptime</button>
 </div>
 </template>
 
@@ -36,35 +35,29 @@ export default {
       longitudeInput:'',
       latitudeInput:'',
       dateInput:'',
+      invalidLongitude:false,
+      invalidLatitude: false,
+      invalidDate:false
     }
   },
   methods:{
     ...mapMutations({reverseFromMap:'reverseFromMap',setDate:'setDate',setLongitude:'setLongitude',setLatitude:'setLatitude'}),
-    commitToStore(){
-      if(this.checkInputs()){
-      if(!this.$store.state.fromMap){
-          this.setLongitude(this.longitudeInput)
-          this.setLatitude(this.latitudeInput)
-        }
-        this.setDate(this.dateInput)
-        }
-        else{
-        alert("Invalid inputs!")
-        }
-      
-      
-    },
+
     checkInputs(name){
       if(name=="lng"){
-      if((this.longitudeInput) =='' || isNaN(this.longitudeInput))return false;
+      if((this.longitudeInput) =='' || isNaN(this.longitudeInput)){
+        return false;
+      }
       }
       else if(name == "lat"){
-        if((this.latitudeInput == '' || isNaN(this.latitudeInput))) return false;
+        if((this.latitudeInput == '' || isNaN(this.latitudeInput))){
+        return false;
+      }
       }
       else if(name=="date"){
-        if((this.dateInput==''||new Date(this.dateInput).toString()=="Invalid Date")) return false;
-      }else{
+        if((this.dateInput==''||new Date(this.dateInput).toString()=="Invalid Date")) {
         return false;
+      }
       }
       return true;
     }
@@ -73,9 +66,11 @@ export default {
     longitudeInput:function(){
       if(!this.$store.getters.isFromMap){
         if(this.checkInputs("lng")){
+          this.invalidLongitude=false;
           this.setLongitude(this.longitudeInput)
+          this.$emit('inputsChanged')
         }else{
-          this.setLongitude("Invalid input!")
+            this.invalidLongitude=true;
         }
       
     }
@@ -83,18 +78,22 @@ export default {
     latitudeInput:function(){
       if(!this.$store.getters.isFromMap){
         if(this.checkInputs("lat")){
+          this.invalidLatitude=false;
           this.setLatitude(this.latitudeInput)
+          this.$emit('inputsChanged')
         }else{
-          this.setLatitude("Invalid input!")
+          this.invalidLatitude=true;
         }
       
     }
     },
     dateInput:function(){
       if(this.checkInputs("date")){
+          this.invalidDate=false;
           this.setDate(this.latitudeInput)
+          this.$emit('inputsChanged')
         }else{
-          this.setDate("Invalid input!")
+          this.invalidDate=true;
         }
     }
   }
@@ -126,6 +125,9 @@ button{
 .storeData{
   display: flex;
   justify-content: space-between;
-  width: 70%;
+  width: 100%;
+}
+.invalid{
+  border: 1px solid red;
 }
 </style>

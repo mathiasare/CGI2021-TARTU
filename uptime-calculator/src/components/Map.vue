@@ -15,7 +15,6 @@
   </div>
   
 </template>
-
 <script>
 import {mapMutations} from 'vuex'
 import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
@@ -31,7 +30,7 @@ export default {
     return {
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 3,
-      center: [47.413220, -1.219482],
+      center: [59.041,25.067],
       bounds: null,
       active:false,
       icon: icon({
@@ -52,6 +51,7 @@ export default {
       if(this.active){
         this.setLongitude(Math.round(center.lng*1000.0)/1000.0)
         this.setLatitude(Math.round(center.lat*1000.0)/1000.0)
+        this.$emit('inputsChanged')
       }
       
     },

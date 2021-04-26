@@ -3,7 +3,7 @@ import App from './App.vue'
 import { LMap, LTileLayer, LMarker,LIcon} from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import store from './store'
-
+import router from './router'
 
 
 
@@ -15,5 +15,6 @@ Vue.component('l-icon', LIcon);
 
 new Vue({
   store,
+  router,
   render: h => h(App)
 }).$mount('#app')

@@ -1,7 +1,11 @@
 <template>
   <div class="answer-box">
-    <h1>{{ longitude }}</h1>
-    <h1>{{ latitude }}</h1>
+    <h2>{{ "Selected longitude:   "+this.$store.state.longitude }}</h2>
+    <h2>{{ "Selected latitude:   "+this.$store.state.latitude }}</h2>
+    <h2>{{"Selected date:   " +this.$store.state.date.toTimeString() | formatTime}}</h2>
+    <ul class="resList" >
+      <li :key="o" v-for="o in output"><h3>{{o | formatTime}}</h3></li>
+    </ul>
   </div>
 </template>
 
@@ -13,9 +17,14 @@ export default {
   data(){
     return{
       latitude:this.$store.state.latitude,
-      longitude:this.$store.state.latitude,
+      longitude:this.$store.state.longitude,
     }
+  },
+  filters: {
+  formatTime: function (value) {
+    return value.split("(")[0]
   }
+}
 };
 </script>
 
@@ -25,7 +34,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 30%;
+  width: 40%;
   justify-content: center;
   align-items: center;
   font-size: 1em;
