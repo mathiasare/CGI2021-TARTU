@@ -10,19 +10,19 @@ Vue.use(VueRouter)
 //Mapping of app routes
 const routes = [
     {
-        path:"/",
-        name:"Home",
-        component:Home
+        path: "/",
+        name: "Home",
+        component: Home
     },
     {
-        path:"/graphs",
-        name:"GraphsPage",
-        component:GraphPage
+        path: "/graphs",
+        name: "GraphsPage",
+        component: GraphPage
     }
 ]
 
 //Export routes, history enables to go back to previous page.
 export default new VueRouter({
-    mode:'history',
-    routes:routes
-  })
+    mode: 'history',
+    routes: routes
+})
