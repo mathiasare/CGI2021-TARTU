@@ -2,14 +2,17 @@
 
 <div id="app">
   <div class="content">
-      <Navigate/>
-      
+      <Navigate/> 
   </div>
 </div>
   
 </template>
 
 <script>
+
+//Root component from the app: Loads router to serve view components: Home and GraphsPage
+
+
 import Navigate from './components/Navigate'
 export default {
   name: "App",
@@ -31,6 +34,7 @@ margin:0;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+    
   
 }
 a{

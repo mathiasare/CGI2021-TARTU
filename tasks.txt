@@ -1,0 +1,24 @@
+Tasks
+
+
+Frontend:
+	*Maps on both pages
+	* Navigation bar: buttons, width, spacing with body
+	* Inputs: labels,spacing
+	* Buttons: add style
+	* Layout
+	* Add author tag
+
+Backend:
+
+	* Graphs: input value checking (Mostly done! Needs to be tested!)
+
+	* Check for better sunset and sunrise package
+	* Comment code!
+	
+
+DONE
+* Map languages
+* Fix inputs turning red
+* Fix fromMap boolean
+	* Add bounds to map
